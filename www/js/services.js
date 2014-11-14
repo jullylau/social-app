@@ -17,5 +17,9 @@ angular.module('starter.services', ['ngResource'])
 })
 
 .factory('Threads', function ($resource) {
-    return $resource('http://dev.intl2.babycenter.ca:8080/ws/groups/:groupId/threads/', {}, {query:{isArray: true}});
+    return $resource('http://dev.intl2.babycenter.ca:8080/ws/groups/:groupId/threads/:threadId', {}, {query:{isArray: true}});
+})
+
+.factory('Comments', function ($resource) {
+    return $resource('http://dev.intl2.babycenter.ca:8080/ws/groups/:groupId/threads/:threadId', {}, {query:{isArray: true}});
 });

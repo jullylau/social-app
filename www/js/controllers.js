@@ -80,4 +80,36 @@ angular.module('starter.controllers', ['starter.services'])
         });
 //      
     };
+}])
+
+.controller('ThreadCtrl', ['$scope', '$stateParams', 'Threads', 'Comments', function($scope, $stateParams, Threads, Comments) {
+    $scope.thread = Threads.get({groupId: $stateParams.groupId, threadId: $stateParams.threadId} );
+    $scope.comments = Comments.query({groupId: $stateParams.groupId, threadId: $stateParams.threadId} );
+
+    $scope.page=1;
+    //$scope.morethreads = true;
+    $scope.loadMoreComments = function() {
+      //alert('loading more threads');
+      Comments.query({groupId: $stateParams.groupId, threadId: $stateParams.threadId, pageNum: $scope.page}, 
+        //success
+        function(newComments){
+          if (newComments.length > 0)
+          {
+            angular.forEach(newComments, function(comment) {
+              $scope.comments.push(comment);
+            });
+            $scope.page +=1;
+          }
+          else
+          {
+            $scope.morecomments = false;
+          }
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        },
+        //error
+        function(){
+          alert('Failed to fetch');
+        });
+//      
+    };
 }]);

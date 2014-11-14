@@ -65,12 +65,12 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     })
 
-    .state('app.single', {
-      url: "/playlists/:playlistId",
+    .state('app.group', {
+      url: "/group/:groupId",
       views: {
         'menuContent' :{
-          templateUrl: "templates/playlist.html",
-          controller: 'PlaylistCtrl'
+          templateUrl: "templates/group.html",
+          controller: 'GroupCtrl'
         }
       }
     });

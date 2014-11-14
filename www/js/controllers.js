@@ -44,10 +44,40 @@ angular.module('starter.controllers', ['starter.services'])
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-})
 
 .controller('HomePageCtrl', function($scope, MyGroups, PopularGroups) {
   $scope.myGroups = MyGroups.query();
   $scope.popularGroups = PopularGroups.query();
-});
+})
+
+.controller('GroupCtrl', ['$scope', '$stateParams', 'Group', 'Threads', function($scope, $stateParams, Group, Threads) {
+    $scope.group = Group.get({groupId: $stateParams.groupId});
+    $scope.threads = Threads.query({groupId: $stateParams.groupId} );
+
+    $scope.page=1;
+    //$scope.morethreads = true;
+    $scope.loadMoreThreads = function() {
+      //alert('loading more threads');
+      Threads.query({groupId: $stateParams.groupId, pageNum: $scope.page}, 
+        //success
+        function(newThreads){
+          if (newThreads.length > 0)
+          {
+            angular.forEach(newThreads, function(thread) {
+              $scope.threads.push(thread);
+            });
+            $scope.page +=1;
+          }
+          else
+          {
+            $scope.morethreads = false;
+          }
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        },
+        //error
+        function(){
+          alert('Failed to fetch');
+        });
+//      
+    };
+}]);

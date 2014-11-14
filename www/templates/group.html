@@ -1,0 +1,44 @@
+<ion-view title="{{group.name}}">
+    <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+          <ion-nav-back-button class="button-icon icon ion-chevron-right"></ion-nav-back-button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+    <div class="list card">
+      <div class="item item-body">
+        <h1>{{group.name}}</h1>
+        <img class="full-image"  ng-src="{{group.imageUrl}}" ng-if="!group.imageUrl">
+        <p ng-bind-html="group.body"></p>
+      </div>
+      <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item">
+          <i class="icon ion-ios7-people"></i>
+          {{group.numberOfMembers}}
+        </a>
+        <a class="tab-item">
+          <i class="icon ion-chatbubbles"></i>
+          {{group.numberOfThreads}}
+        </a>
+      </div>
+    </div>
+    <div ng-repeat="thread in threads"  class="list card ">
+      <div class="item item-avatar">
+        <img ng-src="{{thread.creator.avatarUrl}}_sm_sq.jpg" >
+        <h2>{{thread.creator.screenName}}</h2>
+        <p class="subdued">{{thread.createDate}}</p>
+      </div>
+      <div class="item item-body">
+        <h2>{{thread.title}}</h2>
+        <p ng-bind-html="thread.body" ></p>
+        <p>
+          <a href="#" class="subdued"><i class="icon ion-heart"></i> 5</a>
+          <a href="#" class="subdued"><i class="icon ion-chatbubble"></i> {{thread.numberOfComments}}</a>
+        </p>
+      </div>
+    </div>
+    <ion-infinite-scroll distance="2"
+      on-infinite="loadMoreThreads()"
+      ng-if="!morethreads"  >
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

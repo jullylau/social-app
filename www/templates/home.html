@@ -1,14 +1,13 @@
-
 <ion-view>
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-    <img src="img/logo.svg" alt="BabyCenter Logo" />
+    <img src="img/logo.svg" alt="BabyCenter Logo" height="30"/>
           <ion-nav-back-button class="button-icon icon ion-chevron-right"></ion-nav-back-button>
   </ion-nav-buttons>
   <ion-content>
     <ion-list>
       <ion-item class="item-divider" ng-if="myGroups">My groups</ion-item>
-      <ion-item ng-repeat="group in myGroups" href="#/app/group/{{group.id}}">
+      <ion-item ng-repeat="group in myGroups" href="#/app/group/{{group.id}}" >
         {{group.name}}
       </ion-item>
       <ion-item class="item-divider">Popular groups</ion-item>
